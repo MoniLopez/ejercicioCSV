@@ -3,6 +3,7 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
+  background-color: #87b091;
 }
 
 input {
@@ -10,8 +11,8 @@ input {
   border: 2px solid #1b2f5c;
 }
 
-#detalles h2 {
-  color: #1b2f5c;
+#detalles h4{
+  color: #1b2f5c !important;
 }
 
 td {
@@ -20,4 +21,8 @@ td {
 
 .d-none {
   display: none !important;
+}
+
+.table-responsive th{
+    color: #1b2f5c;
 }
