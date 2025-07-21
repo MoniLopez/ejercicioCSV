@@ -1,0 +1,67 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+    
+    background-color: #87b091;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:"wdth" 100;
+
+}
+
+th{
+    color: #1b2f5c;
+    font-size: 1.5em;
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+input{
+    background-color: #e0e0b6;
+    border: 2px solid #1b2f5c;
+    border-radius: 5px;
+}
+
+#detalles, table{
+    margin-top: 3%;
+    padding: 15px;    
+    width: fit-content;
+    background-color: #e0e0b6;
+    border-radius: 5px;
+    border-collapse: separate;
+    border: 2px solid #1b2f5c;
+}
+
+#detalles h2, #detalles strong{
+    color: #1b2f5c;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: column;  /* Ordenar elementos verticalmente */
+    align-items: center;     /* Centrar horizontalmente */
+    gap: 20px;               /* Espaciado entre input y tabla */
+    margin-bottom: 45px;
+}
+
+.contenido-flex {
+    display: flex;
+    justify-content: center;
+}
+
+td{
+    padding: 10px;
+    border: 1px solid #1b2f5c;
+    cursor: pointer;
+}
