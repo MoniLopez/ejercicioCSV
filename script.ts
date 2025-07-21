@@ -72,12 +72,14 @@ function mostrarDetalles(nombre: string, edad: string, sexo: string, ocupacion: 
     document.getElementById("detalleSexo")!.textContent = sexo;
     document.getElementById("detalleOcupacion")!.textContent = ocupacion;
     document.getElementById("detalleEstudios")!.textContent = estudios;
-    document.getElementById("detalles")!.classList.remove("hidden"); // Mostrar detalles
+    
+    const detalles = document.getElementById("detalles")!;
+    detalles.classList.remove("d-none");
 }
 
 // Función para cerrar los detalles
 function cerrarDetalles() {
-    document.getElementById("detalles")!.classList.add("hidden"); // Ocultar el div de detalles
+   document.getElementById("detalles")!.classList.add("d-none");
 }
 
 //Función para usar texto con acentos
