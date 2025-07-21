@@ -13,7 +13,7 @@ body{
 
 }
 
-th{
+.tablaPrincipal th{
     color: #1b2f5c;
     font-size: 1.5em;
     font-family: "Roboto Mono", monospace;
@@ -60,8 +60,23 @@ input{
     justify-content: center;
 }
 
-td{
+.tablaPrincipal td{
     padding: 10px;
     border: 1px solid #1b2f5c;
     cursor: pointer;
+}
+
+.datos{
+    border: 2px solid #1b2f5c;
+    text-align: center;
+    
+}
+
+.datos th{
+    padding: 10px;
+    border-bottom: 1px solid #1b2f5c;
+}
+
+.datos td{
+    padding: 5px;
 }

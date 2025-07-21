@@ -18,7 +18,7 @@
         <div class="row">
             <div class="contenido-flex">
             
-                <table class="prueba">
+                <table class="tablaPrincipal">
                     <thead>
                       <tr>
                         <th colspan="2">INFORMACIÓN CSV</th>
@@ -33,11 +33,25 @@
                 <div id="detalles" class="hidden">
                     <button type="button" class="btn-close" aria-label="Close"></button>
                     <h2>Detalles</h2>
-                    <p><strong>Nombre:</strong> <span id="detalleNombre"></span></p>
-                    <p><strong>Edad:</strong> <span id="detalleEdad"></span></p>
-                    <p><strong>Sexo:</strong> <span id="detalleSexo"></span></p>
-                    <p><strong>Ocupación:</strong> <span id="detalleOcupacion"></span></p>
-                    <p><strong>Nivel de estudios:</strong> <span id="detalleEstudios"></span></p>
+                    <table class="datos">
+                        <tbody>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Sexo</th>
+                                <th>Ocupación</th>
+                                <th>Nivel de estudios</th>
+                            </tr>
+                            <tr>
+                                <td id="detalleNombre"></td>
+                                <td id="detalleEdad"></td>
+                                <td id="detalleSexo"></td>
+                                <td id="detalleOcupacion"></td>
+                                <td id="detalleEstudios"></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
                 </div>   
             </div>
         </div>
