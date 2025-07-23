@@ -1,6 +1,16 @@
+var _a, _b;
 //Accede al archivo .csv
 document.addEventListener("DOMContentLoaded", function () {
-    var _a;
+    var _a, _b;
+    // Eliminar el foco antes de que el modal se oculte (para evitar advertencias de accesibilidad)
+    (_a = document.getElementById('modalDetalles')) === null || _a === void 0 ? void 0 : _a.addEventListener('hide.bs.modal', function () {
+        var _a;
+        // Si algún elemento dentro del modal tiene el foco, lo quitamos
+        var focused = document.activeElement;
+        if (focused && ((_a = document.getElementById('modalDetalles')) === null || _a === void 0 ? void 0 : _a.contains(focused))) {
+            focused.blur(); // Eliminar el foco
+        }
+    });
     fetch("datosPersonas.csv")
         .then(function (response) { return response.text(); })
         .then(function (data) {
@@ -30,13 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
             td.textContent = "";
             fila.appendChild(td);
         }
-        // Agregar listener para el botón "Cerrar" con clase btn-close
-        var btnClose = document.querySelector(".btn-close");
-        btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener("click", function () { return cerrarDetalles(); });
     })
         .catch(function (error) { return console.error("Error al cargar el archivo CSV:", error); });
     //Búsqueda por nombre en la tabla
-    (_a = document.getElementById("searchInput")) === null || _a === void 0 ? void 0 : _a.addEventListener("input", function () {
+    (_b = document.getElementById("searchInput")) === null || _b === void 0 ? void 0 : _b.addEventListener("input", function () {
         var searchTerm = this.value.toLowerCase(); // Obtiene el texto y lo pasa a minúsculas
         var rows = document.querySelectorAll("#csvBody tr"); // Obtiene todas las filas dentro del tbody
         rows.forEach(function (row) {
@@ -57,20 +64,36 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-// Función para mostrar detalles
+// Guarda el botón o celda que abre el modal
+var elementoQueAbrioModal = null;
+// Función para mostrar detalles en el modal
 function mostrarDetalles(nombre, edad, sexo, ocupacion, estudios) {
-    document.getElementById("detalleNombre").textContent = nombre;
-    document.getElementById("detalleEdad").textContent = edad;
-    document.getElementById("detalleSexo").textContent = sexo;
-    document.getElementById("detalleOcupacion").textContent = ocupacion;
-    document.getElementById("detalleEstudios").textContent = estudios;
-    var detalles = document.getElementById("detalles");
-    detalles.classList.remove("d-none");
+    var modalElement = document.getElementById('modalDetalles');
+    if (modalElement) {
+        elementoQueAbrioModal = document.activeElement; // Guardamos el elemento activo que abrió el modal
+        var modal = new bootstrap.Modal(modalElement);
+        modal.show();
+        document.getElementById("detalleNombre").textContent = nombre;
+        document.getElementById("detalleEdad").textContent = edad;
+        document.getElementById("detalleSexo").textContent = sexo;
+        document.getElementById("detalleOcupacion").textContent = ocupacion;
+        document.getElementById("detalleEstudios").textContent = estudios;
+    }
 }
-// Función para cerrar los detalles
-function cerrarDetalles() {
-    document.getElementById("detalles").classList.add("d-none");
-}
+//Antes de ocultar el modal: quitar foco de cualquier hijo
+(_a = document.getElementById('modalDetalles')) === null || _a === void 0 ? void 0 : _a.addEventListener('hide.bs.modal', function () {
+    var _a;
+    var focused = document.activeElement;
+    if (focused && ((_a = document.getElementById('modalDetalles')) === null || _a === void 0 ? void 0 : _a.contains(focused))) {
+        focused.blur();
+    }
+});
+//Después de cerrar: devolver foco al origen
+(_b = document.getElementById('modalDetalles')) === null || _b === void 0 ? void 0 : _b.addEventListener('hidden.bs.modal', function () {
+    if (elementoQueAbrioModal) {
+        elementoQueAbrioModal.focus();
+    }
+});
 //Función para usar texto con acentos
 function quitarAcentos(texto) {
     var acentos = {
