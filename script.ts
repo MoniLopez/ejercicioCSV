@@ -1,5 +1,15 @@
+declare const bootstrap: any;
 //Accede al archivo .csv
 document.addEventListener("DOMContentLoaded", () => {
+    // Eliminar el foco antes de que el modal se oculte (para evitar advertencias de accesibilidad)
+    document.getElementById('modalDetalles')?.addEventListener('hide.bs.modal', () => {
+    // Si algún elemento dentro del modal tiene el foco, lo quitamos
+    const focused = document.activeElement as HTMLElement | null;
+    if (focused && document.getElementById('modalDetalles')?.contains(focused)) {
+        focused.blur(); // Eliminar el foco
+    }
+    });
+
     fetch("datosPersonas.csv")
         .then(response => response.text())
         .then(data => {
@@ -34,10 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 td.textContent = "";
                 (fila as HTMLTableRowElement).appendChild(td);
             }
-
-            // Agregar listener para el botón "Cerrar" con clase btn-close
-            const btnClose = document.querySelector(".btn-close");
-            btnClose?.addEventListener("click", () => cerrarDetalles());
         })
         .catch(error => console.error("Error al cargar el archivo CSV:", error));
 
@@ -65,22 +71,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Función para mostrar detalles
+// Guarda el botón o celda que abre el modal
+let elementoQueAbrioModal: HTMLElement | null = null;
+
+// Función para mostrar detalles en el modal
 function mostrarDetalles(nombre: string, edad: string, sexo: string, ocupacion: string, estudios: string) {
-    document.getElementById("detalleNombre")!.textContent = nombre;
-    document.getElementById("detalleEdad")!.textContent = edad;
-    document.getElementById("detalleSexo")!.textContent = sexo;
-    document.getElementById("detalleOcupacion")!.textContent = ocupacion;
-    document.getElementById("detalleEstudios")!.textContent = estudios;
     
-    const detalles = document.getElementById("detalles")!;
-    detalles.classList.remove("d-none");
+    const modalElement = document.getElementById('modalDetalles');
+    if (modalElement) {
+        elementoQueAbrioModal = document.activeElement as HTMLElement; // Guardamos el elemento activo que abrió el modal
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+
+        document.getElementById("detalleNombre")!.textContent = nombre;
+        document.getElementById("detalleEdad")!.textContent = edad;
+        document.getElementById("detalleSexo")!.textContent = sexo;
+        document.getElementById("detalleOcupacion")!.textContent = ocupacion;
+        document.getElementById("detalleEstudios")!.textContent = estudios;
+    }
+    
 }
 
-// Función para cerrar los detalles
-function cerrarDetalles() {
-   document.getElementById("detalles")!.classList.add("d-none");
-}
+//Antes de ocultar el modal: quitar foco de cualquier hijo
+document.getElementById('modalDetalles')?.addEventListener('hide.bs.modal', () => {
+    const focused = document.activeElement as HTMLElement | null;
+    if (focused && document.getElementById('modalDetalles')?.contains(focused)) {
+        focused.blur();
+    }
+});
+
+//Después de cerrar: devolver foco al origen
+document.getElementById('modalDetalles')?.addEventListener('hidden.bs.modal', () => {
+    if (elementoQueAbrioModal) {
+        elementoQueAbrioModal.focus();
+    }
+});
 
 //Función para usar texto con acentos
 function quitarAcentos(texto: string): string {
@@ -95,3 +120,4 @@ function quitarAcentos(texto: string): string {
         .map(letra => acentos[letra] || letra)
         .join("");
 }
+
